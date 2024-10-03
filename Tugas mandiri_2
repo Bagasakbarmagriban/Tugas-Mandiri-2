@@ -1,0 +1,55 @@
+#Nama:Bagas akbar magriban
+#Nim:065002400004
+ 
+ #validasi input jam dan menit dan membuat loop jika salah
+def validasi_input(jenis_waktu):
+    while True:
+        try:
+            jam = int(input(f"Masukkan jam {jenis_waktu} (0-23): "))
+            if jam < 0 or jam > 23:
+                print("Jam harus antara 0 dan 23. Silakan coba lagi.")
+                continue
+            
+            menit = int(input(f"Masukkan menit {jenis_waktu} (0-59): "))
+            if menit < 0 or menit > 59:
+                print("Menit harus antara 0 dan 59. Silakan coba lagi.")
+                continue
+            
+            return jam, menit
+        except ValueError:
+            print("Input tidak valid. Harap masukkan angka.")
+
+def hitung_selisih_waktu():
+    print("Masukkan waktu mulai:")
+    jam_mulai, menit_mulai = validasi_input("mulai")
+    
+    print("Masukkan waktu selesai:")
+    jam_selesai, menit_selesai = validasi_input("selesai")
+
+    # hitung total menitnya
+    waktu_mulai_total = jam_mulai * 60 + menit_mulai
+    waktu_selesai_total = jam_selesai * 60 + menit_selesai
+
+    # Jika waktu selesai lebih kecil, artinya melewati tengah malam
+    if waktu_selesai_total < waktu_mulai_total:
+        waktu_selesai_total += 24 * 60  # Tambah 24 jam dalam menit
+
+    # Menghitung selisih jam dan waktu
+    selisih_menit = waktu_selesai_total - waktu_mulai_total
+    selisih_jam = selisih_menit // 60
+    selisih_menit %= 60
+
+    # Hasil
+    if selisih_jam > 0:
+        print(f"Selisih waktu di antara kedua waktu tersebut adalah {selisih_jam} jam dan {selisih_menit} menit.")
+    else:
+        print(f"Selisih waktu di antara kedua waktu tersebut adalah {selisih_menit} menit.")
+# Membuat looping pertannyaan apakah ingin mmebuat perhitungan yang lain dan jika tidak maka akan ada kata terimakasih untuk pengguna
+while True:
+    hitung_selisih_waktu()
+    
+    pilihan = input("Apakah anda mau melakukan perhitungan yang lain (Y/T) ? ").lower()
+    
+    if pilihan == 't':
+        print("Terima kasih telah menggunakan program saya (Programmer)")
+        break
